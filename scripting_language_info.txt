@@ -1,0 +1,13 @@
+difference between scripting language and programming language 
+programming language is a computer language that uses instructions to communicate with computer.
+scripting language is a programming language which uses scripts to automate the tasks 
+
+programming language needs a compiler to execute while scripting language is a interpreter based language.
+like in the case of the JavaScript interpreter is the browser.
+server side scripting and client side scripting 
+Client-side scripting involves writing scripts that are executed on the client's web browser. This means the processing happens on the user's device. JavaScript is the most common language used for client-side scripting. Client-side scripting is often used for enhancing the user experience by adding interactivity to web pages, validating forms, handling events (like button clicks), and dynamically updating content without reloading the page.
+Server-side scripting, on the other hand, involves writing scripts that are executed on the server before the web page is sent to the client's browser. These scripts generate the HTML, CSS, and JavaScript that make up the web page dynamically, based on the user's request. Server-side scripting languages include PHP, Python with frameworks like Django or Flask, Ruby on Rails, Node.js, and others. Server-side scripting is commonly used for tasks such as processing form submissions, interacting with databases, and generating dynamic content.
+
+data type of the variables in the programming language is fixed while in scripting language will decide the data type of the variable at run time 
+
+scripting languages are fast compare to programming languages.
