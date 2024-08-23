@@ -6,10 +6,15 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>HI</h1>
+    <!-- Loop through images and display each -->
+    <% images.forEach((data) => { %>
+        <img src="/uploads/<%= data.name %>" alt="<%= data.name %>" />
+    <% }) %>
+
+    <h1>Upload Image</h1>
     <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="img" >
-        <input type="submit" placeholder="submit">
+        <input type="file" name="img" required>
+        <input type="submit" value="Submit">
     </form>
 </body>
 </html>
