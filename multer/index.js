@@ -46,7 +46,7 @@ const disk=multer.diskStorage({
 const upload=multer({storage:disk});
 app.post("/upload",upload.single("img"),(req,res)=>{
     console.log("hi");
-    console.log(req.body.file);
+    console.log(req.body);
     res.redirect("/");
 })
 
