@@ -3,6 +3,8 @@ const app=express();
 const redis = require("./redis.js");
 const axios=require("axios");
 const { json } = require("body-parser");
+const publisher=require("./publisher.js");
+const subscriber=require("./subscriber.js");
 // console.log(redis);
 
 
@@ -19,7 +21,7 @@ const { json } = require("body-parser");
 //     let data=await axios.get("https://jsonplaceholder.typicode.com/todos");
 //     return data;
 // }
-app.get("/", async (req, res) => {
+app.get("/todos", async (req, res) => {
     try {
         // Await the result of redis.get, since it's an async operation
         const cachedTodos = await redis.get("todos");
@@ -39,7 +41,15 @@ app.get("/", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
-
+app.get("/publish",async (req,res)=>{
+    console.log(req.query); 
+    await subscriber.subscribe("message");
+    await publisher.publish("message",req.query.q);
+    res.send("sent");
+})
+subscriber.on("message",(channel,message)=>{
+    console.log(message);
+})
 app.listen(3000,()=>{
     console.log("running");
 })
