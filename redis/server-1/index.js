@@ -5,22 +5,10 @@ const axios=require("axios");
 const { json } = require("body-parser");
 const publisher=require("./publisher.js");
 const subscriber=require("./subscriber.js");
-// console.log(redis);
 
 
-// async function fun() {
-//     // redis.set("mykey", "value"); 
-//     // await redis.set("foo", "bar", "EX", 20);
-// // console.log(redis);
-//     // const value=await redis.get("foo");
-//     // console.log(await redis.ttl("foo")); 
-//     // console.log(value);
-// }
-// fun();
-// async function getData(){
-//     let data=await axios.get("https://jsonplaceholder.typicode.com/todos");
-//     return data;
-// }
+subscriber.subscribe("message");
+
 app.get("/todos", async (req, res) => {
     try {
         // Await the result of redis.get, since it's an async operation
@@ -42,9 +30,8 @@ app.get("/todos", async (req, res) => {
     }
 });
 app.get("/publish",async (req,res)=>{
-    console.log(req.query); 
-    await subscriber.subscribe("message");
-    await publisher.publish("message",req.query.q);
+    console.log(req.query);
+    await publisher.publish("message","hqllo");
     res.send("sent");
 })
 subscriber.on("message",(channel,message)=>{
