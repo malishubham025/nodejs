@@ -1,0 +1,44 @@
+Flow of Authentication
+User Navigates to /login:
+
+Your /login route handler calls passport.authenticate('google').
+This middleware:
+Redirects the user to Google's login page (along with the client ID, scope, etc.).
+No callback function or route handler executes here because the user is leaving your application to log in with Google.
+Google Redirects Back to /redirect:
+
+After the user logs in on Google and grants permissions, Google redirects them back to the callbackURL (in this case, /redirect).
+The redirect includes an authorization code in the query string, which your app can use to fetch the user's profile and access token.
+Middleware on /redirect Executes:
+
+The middleware passport.authenticate('google') on the /redirect route is called. This middleware:
+Processes the authorization code.
+Exchanges the authorization code for an access token and profile information.
+Executes the callback function provided when configuring the GoogleStrategy.
+If the callback function successfully authenticates the user (calls done(null, user)), Passport considers the authentication successful.
+If Successful, Route Handler for /redirect Executes:
+
+Once the passport.authenticate('google') middleware completes, control moves to the route handler for /redirect.
+In your case:
+javascript
+Copy code
+app.get("/redirect", passport.authenticate('google'), (req, res) => {
+    res.sendStatus(200); // Final response to the user
+});
+Key Notes
+The /redirect route is not called multiple times. The flow is:
+
+Google redirects to /redirect.
+The middleware processes the request and executes the callback function.
+The route handler for /redirect is executed after the middleware succeeds.
+The callback function (from GoogleStrategy) is executed as part of the middleware on /redirect. It is not tied directly to the route handler.
+
+Simplified Flow:
+Step 1: User visits /login. Redirects to Google.
+Step 2: Google redirects the user back to /redirect with an authorization code.
+Step 3: The passport.authenticate('google') middleware on /redirect processes the code and executes the callback function in the GoogleStrategy.
+Step 4: If successful, the /redirect route handler runs and sends the final response.
+Misconception Cleared
+"/redirect will not be called multiple times."
+The route /redirect is called only once by Google during the redirection after login.
+Inside /redirect, Passport handles the logic for fetching the user's profile and authenticating them, and then your route handler responds.

@@ -8,14 +8,16 @@ const cpu=os.cpus().length;
 
 if(cluster.isPrimary){
     // console.log("hi");
-    for(let i=0;i<cpu;i++){
+    for(let i=0;i<2;i++){
         cluster.fork();
     }
 
 }
 else{
     app.get("/",(req,res)=>{
+        console.log(process.pid);
         res.send(`hello ${process.pid}`);
+
     })
     
     app.get("/home",(req,res)=>{

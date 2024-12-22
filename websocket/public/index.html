@@ -7,5 +7,16 @@
 </head>
 <body>
     <h1>Hello</h1>
+    <form onsubmit="handleSubmit(event)" >
+        <input type="text" placeholder="room name" name="room_name" >
+        <input type="submit" placeholder="submit">
+    </form>
+    <form onsubmit="handleCall(event)" >
+        <input type="text" placeholder="room name" name="room_name" >
+        <input type="submit" placeholder="make call" name="call">
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
